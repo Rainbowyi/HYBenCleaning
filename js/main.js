@@ -72,6 +72,19 @@
   emailjs.init("Cz-O_QhzJOkSTsSHq");
   $("#form-quote").submit(function (e) {
     e.preventDefault()
+
+    //get each field and check
+    var errorCount = 0;
+    //get name
+    var customerName = $('#txt-name').val();
+    if(customerName == '') {
+      $('#txt-name').addClass('is-invalid');
+      $('#txt-name').focus()
+      errorCount++;
+    }
+    if(errorCount > 0 ) {
+      return;
+    }
     emailjs.sendForm("service_ag3bl9w","template_rmq4hor", this)
      .then(() => {
        
