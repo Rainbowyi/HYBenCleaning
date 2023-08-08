@@ -1,16 +1,16 @@
 (function ($) {
-  "use strict";
+  'use strict';
 
   // Back to top button
   $(window).scroll(function () {
     if ($(this).scrollTop() > 200) {
-      $(".back-to-top").fadeIn("slow");
+      $('.back-to-top').fadeIn('slow');
     } else {
-      $(".back-to-top").fadeOut("slow");
+      $('.back-to-top').fadeOut('slow');
     }
   });
-  $(".back-to-top").click(function () {
-    $("html, body").animate({ scrollTop: 0 }, 1500, "easeInOutExpo");
+  $('.back-to-top').click(function () {
+    $('html, body').animate({ scrollTop: 0 }, 1500, 'easeInOutExpo');
     return false;
   });
 
@@ -32,7 +32,7 @@
   // });
 
   // Testimonials carousel
-  $(".testimonials-carousel").owlCarousel({
+  $('.testimonials-carousel').owlCarousel({
     autoplay: true,
     dots: true,
     loop: true,
@@ -53,44 +53,65 @@
   });
 
   // Portfolio isotope and filter
-  var portfolioIsotope = $(".portfolio-container").isotope({
-    itemSelector: ".portfolio-item",
-    layoutMode: "fitRows",
+  var portfolioIsotope = $('.portfolio-container').isotope({
+    itemSelector: '.portfolio-item',
+    layoutMode: 'fitRows',
   });
 
-  $("#portfolio-flters li").on("click", function () {
-    $("#portfolio-flters li").removeClass("filter-active");
-    $(this).addClass("filter-active");
+  $('#portfolio-flters li').on('click', function () {
+    $('#portfolio-flters li').removeClass('filter-active');
+    $(this).addClass('filter-active');
 
-    portfolioIsotope.isotope({ filter: $(this).data("filter") });
+    portfolioIsotope.isotope({ filter: $(this).data('filter') });
   });
 
   // add event listener for the submit button
   // 1. read value from the input box
   // 2. Add validation for each value (
   // 3. call email js with those value
-  emailjs.init("Cz-O_QhzJOkSTsSHq");
-  $("#form-quote").submit(function (e) {
-    e.preventDefault()
+  emailjs.init('Cz-O_QhzJOkSTsSHq');
+  $('#form-quote').submit(function (e) {
+    e.preventDefault();
 
     //get each field and check
     var errorCount = 0;
     //get name
     var customerName = $('#txt-name').val();
-    if(customerName == '') {
+    if (customerName == '') {
       $('#txt-name').addClass('is-invalid');
-      $('#txt-name').focus()
+      $('#txt-name').focus();
       errorCount++;
     }
-    if(errorCount > 0 ) {
-      return;
+    //get phone
+
+    var customerPhone = $('#txt-phoneNumber').val();
+    if (customerPhone == '') {
+      $('#txt-phoneNumber').addClass('is-invalid');
+      $('#txt-phoneNumber').focus();
+      errorCount++;
     }
-    emailjs.sendForm("service_ag3bl9w","template_rmq4hor", this)
-     .then(() => {
-       
-       alert('Sent!');
-     }, (err) => {
-       alert(JSON.stringify(err));
-     });
+    //get dropdown-service Type
+    var serviceType = $('#dropdown-serviceType').val();
+    if (serviceType === '') {
+      $('#dropdown-serviceType').addClass('is-invalid');
+      if (errorCount === 0) $('#dropdown-serviceType').focus();
+      errorCount++;
+    }
+    if (errorCount > 0) {
+      //Display error message
+      $('#error-message').text('Please fill in all the required fields');
+      return;
+    } else {
+      //Clear error message
+      $('#error-message').text('');
+    }
+    emailjs.sendForm('service_ag3bl9w', 'template_rmq4hor', this).then(
+      () => {
+        alert('Sent!');
+      },
+      (err) => {
+        alert(JSON.stringify(err));
+      }
+    );
   });
 })(jQuery);

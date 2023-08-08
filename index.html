@@ -107,8 +107,10 @@
               <h3>Get A Quote</h3>
               <form id="form-quote">
                 <input id="txt-name" name="customer_name" class="form-control" type="text" placeholder="Your Name" />
+                <div class="error-message" id="error-name"></div>
                 <input id="txt-phoneNumber" class="form-control" name="customer_phoneNumber" type="text"
                   placeholder="Mobile Number" />
+                  <div class="error-message" id="error-phoneNumber"></div>
                 <div class="control-group">
                   <select id="dropdown-serviceType" class="custom-select" name="service_type">
                     <option selected>Choose a service</option>
@@ -116,6 +118,7 @@
                     <option value="2">Apartment Cleaning</option>
                     <option value="3">Office Cleaning</option>
                   </select>
+                  <div class="error-message" id="error-serviceType"></div>
                 </div>
                 <textarea id="txt-comment" name="comment" class="form-control" placeholder="Comment"></textarea>
                 <button id="btn-quote" class="btn btn-block">Get A Quote</button>
